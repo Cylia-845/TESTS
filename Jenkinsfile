@@ -12,7 +12,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                bat 'mvn clean package' // Pour Windows PowerShell / CMD
+                sh 'mvn clean package'
             }
         }
     }
