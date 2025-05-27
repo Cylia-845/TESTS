@@ -35,7 +35,7 @@ pipeline {
                     sh """
                         ${env.SONARQUBE_SCANNER_HOME}/bin/sonar-scanner \
                         -Dsonar.projectKey=${env.SONAR_PROJECT_KEY} \
-                        -Dsonar.projectName=SpringBoot Demo \
+                        -Dsonar.projectName=SpringBootDemo \
                         -Dsonar.projectVersion=1.0 \
                         -Dsonar.sources=src \
                         -Dsonar.java.binaries=target/classes
