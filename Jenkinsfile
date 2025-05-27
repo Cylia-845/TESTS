@@ -1,13 +1,13 @@
 pipeline {
     agent any
     tools {
-        jdk 'jdk-21'         // nom JDK configuré dans Jenkins
+        jdk 'jdk-17'         // nom JDK configuré dans Jenkins
         maven 'Maven-3.9.9'  // nom Maven configuré dans Jenkins
     }
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://github.com/Cylia-845/TESTS'
+                git branch: 'main', url: 'https://github.com/Cylia-845/TESTS'
             }
         }
         stage('Build') {
