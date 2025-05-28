@@ -14,16 +14,10 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
-
-        stage('Test') {
+            stage('Build and Test') {
     steps {
         catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-            sh 'mvn test'
+            sh 'mvn clean verify'
         }
     }
 }
