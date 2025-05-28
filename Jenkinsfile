@@ -41,6 +41,7 @@ pipeline {
                         -Dsonar.projectVersion=1.0 \
                         -Dsonar.sources=src \
                         -Dsonar.java.binaries=target/classes
+                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
                     """
                 }
             }
