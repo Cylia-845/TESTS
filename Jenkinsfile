@@ -21,10 +21,12 @@ pipeline {
         }
 
         stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
+    steps {
+        catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
+            sh 'mvn test'
         }
+    }
+}
 
         stage('SonarQube Analysis') {
             environment {
@@ -52,5 +54,8 @@ pipeline {
         failure {
             echo 'Build échoué !'
         }
+         always {
+        junit 'target/surefire-reports/*.xml'
+    }
     }
 }
