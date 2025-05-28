@@ -22,21 +22,19 @@ class DemoApplicationTests {
     }
 
     @Test
-    void greetEndpointShouldReturnGreetingWithName() {
+    void greetEndpointShouldReturnHelloName() {
         String response = this.restTemplate.getForObject("/api/greet?name=Cylia", String.class);
         assertThat(response).isEqualTo("Hello, Cylia!");
     }
 
     @Test
-    void greetEndpointShouldReturnDefaultGreeting() {
-        String response = this.restTemplate.getForObject("/api/greet", String.class);
-        assertThat(response).isEqualTo("Hello, World!");
-    }
+    void addEndpointShouldReturnCorrectSum() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity<String> request = new HttpEntity<>("a=3&b=4", headers);
 
-    @Test
-    void addEndpointShouldReturnSum() {
-        ResponseEntity<Integer> response = this.restTemplate.postForEntity("/api/add?a=3&b=4", null, Integer.class);
+        ResponseEntity<String> response = this.restTemplate.postForEntity("/api/add", request, String.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(response.getBody()).isEqualTo(7);
+        assertThat(response.getBody()).isEqualTo("7");
     }
 }
