@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class DemoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class, args);
+    }
 
-	@GetMapping("/")
-	public String home() {
-		return "Hello Jenkins!";
-	}
+    @GetMapping("/")
+    public String home() {
+        return "Hello Jenkins!";
+    }
 
-	@GetMapping("/greet")
-	public String greet(@RequestParam(defaultValue = "World") String name) {
-		return "Hello, " + name + "!";
-	}
+    @GetMapping("/greet")
+    public String greet(@RequestParam(defaultValue = "World") String name) {
+        return String.format("Hello, %s!", name);
+    }
 
-	@PostMapping("/add")
-	public int add(@RequestParam int a, @RequestParam int b) {
-		return a + b;
-	}
+    @PostMapping("/add")
+    public int add(@RequestParam int a, @RequestParam int b) {
+        return a + b;
+    }
 }
