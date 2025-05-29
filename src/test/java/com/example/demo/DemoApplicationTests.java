@@ -1,9 +1,9 @@
 package com.example.demo;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.*;
 
@@ -29,28 +29,38 @@ class DemoApplicationTests {
 
     @Test
     void addEndpointShouldReturnCorrectSum() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        HttpEntity<String> request = new HttpEntity<>("a=3&b=4", headers);
-
+        HttpEntity<String> request = createHttpEntity("a=3&b=4");
         ResponseEntity<String> response = this.restTemplate.postForEntity("/api/add", request, String.class);
+        
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isEqualTo("7");
     }
+
     @Test
-void greetEndpointShouldReturnHelloWorldByDefault() {
-    String response = this.restTemplate.getForObject("/api/greet", String.class);
-    assertThat(response).isEqualTo("Hello, World!");
-}
+    void greetEndpointShouldReturnHelloWorldByDefault() {
+        String response = this.restTemplate.getForObject("/api/greet", String.class);
+        assertThat(response).isEqualTo("Hello, World!");
+    }
 
     @Test
     void addEndpointShouldWorkWithNegativeNumbers() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        HttpEntity<String> request = new HttpEntity<>("a=-2&b=-3", headers);
-    
+        HttpEntity<String> request = createHttpEntity("a=-2&b=-3");
         ResponseEntity<String> response = this.restTemplate.postForEntity("/api/add", request, String.class);
+        
         assertThat(response.getBody()).isEqualTo("-5");
     }
 
+    @Test
+    void addEndpointShouldReturnBadRequestForInvalidInput() {
+        HttpEntity<String> request = createHttpEntity("a=abc&b=4");
+        ResponseEntity<String> response = this.restTemplate.postForEntity("/api/add", request, String.class);
+        
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    private HttpEntity<String> createHttpEntity(String body) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        return new HttpEntity<>(body, headers);
+    }
 }
