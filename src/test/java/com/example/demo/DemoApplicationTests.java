@@ -37,4 +37,20 @@ class DemoApplicationTests {
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isEqualTo("7");
     }
+    @Test
+void greetEndpointShouldReturnHelloWorldByDefault() {
+    String response = this.restTemplate.getForObject("/api/greet", String.class);
+    assertThat(response).isEqualTo("Hello, World!");
+}
+
+    @Test
+    void addEndpointShouldWorkWithNegativeNumbers() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity<String> request = new HttpEntity<>("a=-2&b=-3", headers);
+    
+        ResponseEntity<String> response = this.restTemplate.postForEntity("/api/add", request, String.class);
+        assertThat(response.getBody()).isEqualTo("-5");
+    }
+
 }
