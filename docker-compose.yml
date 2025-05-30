@@ -1,16 +1,15 @@
 version: '3'
-
 services:
   jenkins:
     image: jenkins/jenkins:lts
     container_name: jenkins
     ports:
-      - "8080:8080"      # Port pour l'interface web de Jenkins
-      - "50000:50000"    # Port pour les agents Jenkins
+      - "8080:8080"
+      - "50000:50000"
     volumes:
-      - jenkins_home:/var/jenkins_home  # Volume pour persister les données de Jenkins
-      - /var/run/docker.sock:/var/run/docker.sock  # Permet à Jenkins d'utiliser Docker
-    restart: unless-stopped  # Redémarre le conteneur sauf s'il est arrêté manuellement
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
 
 volumes:
-  jenkins_home:  # Volume pour stocker les données de Jenkins
+  jenkins_home:
