@@ -18,14 +18,11 @@
 	<name>demo</name>
 	<description>Demo project for Spring Boot</description>
 
-	<properties>
-		<java.version>17</java.version>
-		<sonar.coverage.exclusions>
-			**/DemoApplication.java,
-			**/DemoApplicationTests.java,
-			**/CalculatorTest.java
-		</sonar.coverage.exclusions>
-	</properties>
+     <properties>
+    	<java.version>17</java.version>
+    	<sonar.coverage.exclusions>**/DemoApplication.java,**/DemoApplicationTests.java,**/CalculatorTest.java</sonar.coverage.exclusions>
+    </properties>
+
 
 	<dependencies>
 		<!-- Web -->
