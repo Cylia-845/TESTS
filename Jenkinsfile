@@ -20,9 +20,7 @@ pipeline {
 
         stage('Build and Test') {
             steps {
-                catchError(buildResult: 'FAILURE', stageResult: 'FAILURE') {
-                    sh 'mvn clean verify'
-                }
+                   sh 'mvn clean verify'
             }
         }
 
